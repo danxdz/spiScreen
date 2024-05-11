@@ -340,11 +340,8 @@ void Prefs::saveSticks()
     }
 
     preferences.putInt("stick_num", stickCalibrationCounter);
-    preferences.putBool("saved_calib", true);
-
-
-    if (debugEnabled)
-        dbout.printf("Current calibration saved: %d\n", saved_stick_calibration);
+    if (stickCalibrationCounter > 0) preferences.putBool("saved_calib", true);
+        if (debugEnabled) dbout.printf("Current calibration saved: %d\n", saved_stick_calibration);
 
     preferences.end();
 }

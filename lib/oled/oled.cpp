@@ -8,6 +8,8 @@
 
 #include "Adafruit_GC9A01A.h"
 
+#include <TFT_eSPI.h> // Hardware-specific library
+
 #define DEBUG
 
 
@@ -25,6 +27,12 @@ void Oled::PrintLoad(char *tmp)
     Oled::Println(tmp);
 }
 
+//print circle
+void Oled::PrintCircle(uint8_t x, uint8_t y, uint8_t r, uint16_t color)
+{
+    display.drawCircle(x, y, r, color);
+    display.drawCircleHelper(x, y, r-5, 1, color);
+}
 
 // with y , size default 1, color default white
 void Oled::PrintCenter(char *tmp,uint8_t y, uint8_t size , uint16_t color , uint16_t bgcolor)
@@ -104,28 +112,28 @@ void Oled::testFillScreen() {
   yield();
 }
 void ICACHE_RAM_ATTR Oled::printText(rc_input_t rcInput) {
-    //display.fillScreen(GC9A01A_BLACK);
-    unsigned long start = micros();
+
  
     display.setTextColor(GC9A01A_WHITE, GC9A01A_BLACK);
-    //display.fillRoundRect(0, 0, 400, 150, 1, GC9A01A_BLACK);
 
-    display.setTextSize(2);
-    display.setCursor(0, 0);
-    display.println("      ");
-    display.println("      ");
-    display.println("      ");
-    String spc = "        ";
 
-    String str = spc + String(rcInput.elevator) + spc;    
-    display.println(str);
-    str = spc + String(rcInput.aileron) + spc;
-    display.println(str);
-    str = spc + String(rcInput.throttle) + spc;
-    display.println(str);
-    str = spc + String(rcInput.rudder) + spc;
-    display.println(str);
+    //char 12 for take space
+    char buffer[6];
+    // create list with controls rcInput.aileron, rcInput.throttle, rcInput.rudder, rcInput.elevator
+    int rcInputList[4] = {rcInput.aileron, rcInput.elevator, rcInput.throttle, rcInput.rudder};
+    
+    int tmp = 0;
 
+    for (int i = 0; i <= 3; i++)
+    {
+        // map each value to int 0 - 100
+        display.setTextSize(2);
+        display.setCursor(75, 50+(i*20));
+        tmp = map(rcInputList[i], 0, 15000, 0, 100);
+        sprintf(buffer, "%5d", tmp);
+        display.println(buffer);
+    }
+    
 }
 
 

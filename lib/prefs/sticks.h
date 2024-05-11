@@ -51,13 +51,13 @@ class Prefs
 private:
   Preferences preferences;
   ADSreader ads_reader;
-  stick_calibration_t sticks;
   stick_calibration_t oldSticks;
 
   boolean saved_stick_calibration = false;
   int stickCalibrationCounter = 0;
 
 public:
+  stick_calibration_t sticks;
   bool init(rc_input_t *rc_input, UI_input_t *UIinput);
   bool validateStickCalibration(stick_calibration_t sticks);
   bool calibrateStickValues(rc_input_t *rc_input, UI_input_t *UIinput);

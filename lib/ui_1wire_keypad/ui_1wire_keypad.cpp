@@ -30,7 +30,7 @@ void ICACHE_RAM_ATTR Keypad::read_keypad(UI_input_t* UI_input) {
     return;
   }
 
-  //dbout.printf("key:%i:%i:%i:%i:%i\n", UI_input->key, entered, selected, subSelected, mmOptionSelected);
+  dbout.printf("key:%i:%i:%i:%i:%i\n", UI_input->key, entered, selected, subSelected, mmOptionSelected);
 
   switch (entered) {
     case -2:

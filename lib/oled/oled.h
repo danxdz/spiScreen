@@ -20,6 +20,8 @@ public:
 
   void printText(rc_input_t rcInput);
 
+  void PrintCircle(uint8_t x, uint8_t y, uint8_t r, uint16_t color);
+
   void Clear();
 
   void setFont(const uint8_t font[]);
